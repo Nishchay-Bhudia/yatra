@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────────────────────
 //  EDIT ME: all stops, days and events live here.
 //  Verified pins: Chhapaiya, Gupteshwar, Muktinath, Galeshwar (3 km N of Beni), Modibeni (Modi Khola mouth).
-//  Still approximate: Khokhra and Mahashila. Nudge lat/lng if a pin is off.
+//  Mahashila = Mahashila rural municipality centre, Parbat (confirm exact spot). Khokhra is still a guess. Nudge lat/lng if a pin is off.
 //  tz = UTC offset in minutes (India 330, Nepal 345).
 // ─────────────────────────────────────────────────────────────
 const IN = 330, NP = 345;
@@ -15,7 +15,7 @@ export const STOPS = {
   galeshwar: { emoji: '🏞️', lat: 28.3800, lng: 83.5670, tz: NP, name: { en: 'Galeshwar', gu: 'ગલેશ્વર', hi: 'गलेश्वर' } },
   muktinath: { emoji: '🏔️', lat: 28.8168, lng: 83.8717, tz: NP, name: { en: 'Muktinath', gu: 'મુક્તિનાથ', hi: 'मुक्तिनाथ' } },
   modibeni:  { emoji: '🧘', lat: 28.2050, lng: 83.6700, tz: NP, name: { en: 'Modibeni · Gopalyogi Ashram', gu: 'મોદીબેની · ગોપાલયોગી આશ્રમ', hi: 'मोदीबेनी · गोपालयोगी आश्रम' } },
-  mahashila: { emoji: '🪨', lat: 28.3550, lng: 83.5650, tz: NP, name: { en: 'Mahashila', gu: 'મહાશીલા', hi: 'महाशिला' } },
+  mahashila: { emoji: '🪨', lat: 28.0830, lng: 83.6740, tz: NP, name: { en: 'Mahashila', gu: 'મહાશીલા', hi: 'महाशिला' } },
 };
 
 // defaultDepart = HH:MM local time at the first stop of the day.

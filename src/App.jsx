@@ -39,14 +39,16 @@ export default function App() {
   const [locTick, setLocTick] = useState(0);
   const [locMsg, setLocMsg] = useState('');
   const watch = useRef(null);
-  const locate = () => {
-    if (!navigator.geolocation) return setLocMsg(t('locFail'));
-    if (watch.current == null) watch.current = navigator.geolocation.watchPosition(
-      (p) => { setMe({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }); },
-      () => { setLocMsg(t('locFail')); navigator.geolocation.clearWatch(watch.current); watch.current = null; setTimeout(() => setLocMsg(''), 4000); },
+  const startWatch = (silent) => {
+    if (!navigator.geolocation) { if (!silent) setLocMsg(t('locFail')); return; }
+    if (watch.current != null) return;
+    watch.current = navigator.geolocation.watchPosition(
+      (p) => setMe({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }),
+      () => { navigator.geolocation.clearWatch(watch.current); watch.current = null; if (!silent) { setLocMsg(t('locFail')); setTimeout(() => setLocMsg(''), 4000); } },
       { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 });
-    setLocTick((n) => n + 1);
   };
+  const locate = () => { startWatch(false); setLocTick((n) => n + 1); };
+  useEffect(() => { startWatch(true); }, []); // ask for location on first load
   const [manual, setManual] = useStored('visited', {});
   const drag = useDragControls();
   useEffect(() => { const id = setTimeout(() => setHint(false), 7000); return () => clearTimeout(id); }, []);
