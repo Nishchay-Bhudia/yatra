@@ -5,6 +5,7 @@ import { getRoute, getElevation, classifyTerrain, TERRAIN } from '../lib/api';
 import { STOPS } from '../data/itinerary';
 import { pick } from '../i18n';
 import { fmtDur } from '../lib/time';
+import { BASES } from '../lib/maps';
 
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 const pin = (s, name, badge, on, done, delay) => L.divIcon({
@@ -17,15 +18,7 @@ const arrow = (ang, done) => L.divIcon({
 });
 const dense = (c) => { if (c.length > 4) return c; const o = []; for (let i = 0; i <= 14; i++) o.push([c[0][0] + (c[1][0] - c[0][0]) * i / 14, c[0][1] + (c[1][1] - c[0][1]) * i / 14]); return o; };
 
-const BASES = {
-  map: [{ url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', o: { subdomains: 'abcd', maxZoom: 19, attribution: '© OpenStreetMap · © CARTO' } },
-        { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}', o: { maxZoom: 13, opacity: 0.3, attribution: '© Esri' } }],
-  terrain: [{ url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', o: { maxZoom: 18, attribution: '© Esri, HERE, Garmin, OSM contributors' } }],
-  sat: [{ url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', o: { maxZoom: 18, attribution: '© Esri, Maxar, Earthstar' } },
-        { url: 'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', o: { maxZoom: 18, attribution: '' } }],
-};
-
-export default function MapView({ legs, firstDay, lang, t, sel, onSelect, inset, base, visited, doneLegs }) {
+export default function MapView({ legs, firstDay, lang, t, sel, onSelect, inset, base, onBaseFail, me, locateTick, visited, doneLegs }) {
   const el = useRef(null), map = useRef(null), markers = useRef({}), polys = useRef({}), tiles = useRef(null), arrows = useRef(null), chips = useRef(null);
   const [routes, setRoutes] = useState({});
   const [adj, setAdj] = useState({});
@@ -90,7 +83,8 @@ export default function MapView({ legs, firstDay, lang, t, sel, onSelect, inset,
   // base layer
   useEffect(() => {
     tiles.current.clearLayers();
-    BASES[base].forEach((b) => L.tileLayer(b.url, b.o).addTo(tiles.current).setZIndex(1));
+    let errs = 0;
+    BASES[base].forEach((b) => { const tl = L.tileLayer(b.url, b.o).addTo(tiles.current).setZIndex(1); tl.on('tileerror', () => { if (++errs === 6 && base !== 'map') onBaseFail(); }); });
   }, [base]);
 
   // routes + terrain-adjusted durations
@@ -100,6 +94,18 @@ export default function MapView({ legs, firstDay, lang, t, sel, onSelect, inset,
       getElevation(r.coords).then((e) => setAdj((o) => ({ ...o, [l.id]: r.min * TERRAIN[classifyTerrain(e)].factor }))).catch(() => {});
     }));
   }, []);
+
+  // my location
+  const meLayer = useRef(null);
+  useEffect(() => {
+    const m = map.current; if (!m) return;
+    if (!meLayer.current) meLayer.current = L.layerGroup().addTo(m);
+    meLayer.current.clearLayers();
+    if (!me) return;
+    L.circle([me.lat, me.lng], { radius: Math.min(me.acc || 50, 2000), stroke: false, fillColor: '#2f7bff', fillOpacity: 0.12, interactive: false }).addTo(meLayer.current);
+    L.marker([me.lat, me.lng], { icon: L.divIcon({ className: 'me-ic', iconSize: [0, 0], html: '<div class="me-dot"><i></i></div>' }), zIndexOffset: 2000, interactive: false }).addTo(meLayer.current);
+  }, [me]);
+  useEffect(() => { if (locateTick && me) map.current.flyTo([me.lat, me.lng], Math.max(map.current.getZoom(), 12), { duration: 1.2 }); }, [locateTick]);
 
   const styleRoutes = () => {
     const { sel: s, doneLegs: dl } = ref.current;

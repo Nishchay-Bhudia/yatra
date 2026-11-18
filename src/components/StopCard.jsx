@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { STOPS } from '../data/itinerary';
 import { PLACES, HINDU } from '../data/places';
 import { pick, num } from '../i18n';
-import { getWeather, weatherFor, wmo } from '../lib/api';
+import { getWeather, weatherFor, wmo, haversineKm } from '../lib/api';
 import { fmtDate, toMs } from '../lib/time';
 
-export default function StopCard({ id, dates, lang, t, now, visited, onToggle, nextLegs, onOpenLeg }) {
+export default function StopCard({ id, dates, lang, t, now, visited, onToggle, nextLegs, onOpenLeg, me }) {
   const s = STOPS[id], p = PLACES[id];
   const [di, setDi] = useState(0);
   const [wx, setWx] = useState(undefined);
@@ -35,6 +35,7 @@ export default function StopCard({ id, dates, lang, t, now, visited, onToggle, n
           </>
         )}
       </div>
+      {me && <p className="away">📍 {num(Math.round(haversineKm(me, s)), lang)} {t('km')} {t('away')}</p>}
       <div className="actions">
         <button className={`vbtn ${visited ? 'on' : ''}`} onClick={onToggle}>{visited ? t('visitedT') : '○ ' + t('markVisited')}</button>
         {nextLegs.map((l) => <button key={l.id} className="chip live" onClick={() => onOpenLeg(l.id)}>🚗 ➜ {pick(STOPS[l.b].name, lang).split('·')[0]}</button>)}

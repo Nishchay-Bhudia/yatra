@@ -157,3 +157,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:6px}
 .vbtn{border-radius:99px;padding:4px 14px;font-weight:800;font-size:14px;background:#fff;box-shadow:0 4px 10px rgba(47,100,200,.16)}
 .vbtn.on{background:linear-gradient(135deg,#6fe3b0,#1fb67a);color:#fff}
 .base-sat .leaflet-container{background:#222}
+
+.locbtn{top:110px}.locbtn.on{background:linear-gradient(135deg,var(--blue2),var(--blue))}
+.me-ic{background:none;border:none}
+.me-dot{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:#2f7bff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.me-dot i{position:absolute;inset:-3px;border-radius:50%;border:2px solid #2f7bff;animation:ring 2s ease-out infinite}
+.away{font-weight:700;color:var(--blue);margin:6px 0 0}

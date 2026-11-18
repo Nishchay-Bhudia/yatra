@@ -92,6 +92,9 @@ const D = {
   visitedT: { gu: 'દર્શન થઈ ગયા ✓', en: 'Visited ✓', hi: 'दर्शन हो गए ✓' },
   markVisited: { gu: 'દર્શન થયા તરીકે ટિક કરો', en: 'Tick as visited', hi: 'दर्शन हुए – टिक करें' },
   nextLegs: { gu: 'આગળ જવા માટે ETA', en: 'Next: get ETA', hi: 'आगे: ETA देखें' },
+  whereAmI: { gu: 'હું ક્યાં છું', en: 'Where am I', hi: 'मैं कहाँ हूँ' },
+  locFail: { gu: 'લોકેશન મળ્યું નથી – પરવાનગી આપો', en: 'Location unavailable – allow access', hi: 'लोकेशन नहीं मिली – अनुमति दें' },
+  away: { gu: 'દૂર (સીધી રેખામાં)', en: 'away (straight line)', hi: 'दूर (सीधी रेखा में)' },
   footer: { gu: 'ડેટા: Open-Meteo · OSRM · OpenStreetMap — બધું મફત', en: 'Data: Open-Meteo · OSRM · OpenStreetMap — all free', hi: 'डेटा: Open-Meteo · OSRM · OpenStreetMap — सब मुफ़्त' },
 };
 

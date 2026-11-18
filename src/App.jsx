@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { DAYS, STOPS } from './data/itinerary';
 import { LANGS, makeT, pick } from './i18n';
 import { useNow, toMs } from './lib/time';
+import { ORDER, ICON } from './lib/maps';
 import { useStored } from './lib/useStored';
 import MapView from './components/MapView';
 import LegCard from './components/LegCard';
@@ -32,7 +33,20 @@ export default function App() {
   const desktop = useDesktop();
   const [sel, setSel] = useState(null);
   const [hint, setHint] = useState(true);
-  const [base, setBase] = useStored('base', 'map');
+  const [baseRaw, setBase] = useStored('base', 'map');
+  const base = ORDER.includes(baseRaw) ? baseRaw : 'map';
+  const [me, setMe] = useState(null);
+  const [locTick, setLocTick] = useState(0);
+  const [locMsg, setLocMsg] = useState('');
+  const watch = useRef(null);
+  const locate = () => {
+    if (!navigator.geolocation) return setLocMsg(t('locFail'));
+    if (watch.current == null) watch.current = navigator.geolocation.watchPosition(
+      (p) => { setMe({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }); },
+      () => { setLocMsg(t('locFail')); navigator.geolocation.clearWatch(watch.current); watch.current = null; setTimeout(() => setLocMsg(''), 4000); },
+      { enableHighAccuracy: true, maximumAge: 10000, timeout: 20000 });
+    setLocTick((n) => n + 1);
+  };
   const [manual, setManual] = useStored('visited', {});
   const drag = useDragControls();
   useEffect(() => { const id = setTimeout(() => setHint(false), 7000); return () => clearTimeout(id); }, []);
@@ -47,7 +61,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <MapView legs={LEGS} firstDay={FIRST_DAY} lang={lang} t={t} sel={sel} onSelect={setSel} inset={inset} base={base} visited={visited} doneLegs={doneLegs} />
+      <MapView legs={LEGS} firstDay={FIRST_DAY} lang={lang} t={t} sel={sel} onSelect={setSel} inset={inset} base={base} onBaseFail={() => setBase('map')} me={me} locateTick={locTick} visited={visited} doneLegs={doneLegs} />
 
       <div className="floating">
         <motion.div className="brand" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}><span>🙏</span><b>{t('appName')}</b></motion.div>
@@ -61,7 +75,9 @@ export default function App() {
         </div>
       </div>
 
-      <button className="layerbtn" onClick={() => setBase({ map: 'terrain', terrain: 'sat', sat: 'map' }[base])} aria-label="map style">{{ map: '🗺️', terrain: '⛰️', sat: '🛰️' }[base]}</button>
+      <button className="layerbtn" onClick={() => setBase(ORDER[(ORDER.indexOf(base) + 1) % ORDER.length])} aria-label="map style">{ICON[base]}</button>
+      <button className={`layerbtn locbtn ${me ? 'on' : ''}`} onClick={locate} aria-label={t('whereAmI')}>📍</button>
+      <AnimatePresence>{locMsg && <motion.div className="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{locMsg}</motion.div>}</AnimatePresence>
       <AnimatePresence>{hint && !sel && <motion.div className="hint" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>👆 {t('pickStop')}</motion.div>}</AnimatePresence>
 
       <AnimatePresence mode="wait">
@@ -75,7 +91,7 @@ export default function App() {
             </div>
             <div className="pop-body">
               {leg ? <LegCard key={leg.id} legIdx={leg.idx} fromId={leg.a} toId={leg.b} day={leg.day} lang={lang} t={t} now={now} />
-                : <StopCard id={sel.id} dates={STOP_DATES[sel.id]} lang={lang} t={t} now={now} visited={visited[sel.id]} onToggle={() => setManual({ ...manual, [sel.id]: !visited[sel.id] })} nextLegs={LEGS.filter((l) => l.a === sel.id)} onOpenLeg={(id) => setSel({ type: 'leg', id })} />}
+                : <StopCard id={sel.id} dates={STOP_DATES[sel.id]} lang={lang} t={t} now={now} visited={visited[sel.id]} onToggle={() => setManual({ ...manual, [sel.id]: !visited[sel.id] })} me={me} nextLegs={LEGS.filter((l) => l.a === sel.id)} onOpenLeg={(id) => setSel({ type: 'leg', id })} />}
             </div>
           </motion.div>
         )}
