@@ -33,7 +33,7 @@ export function getRoute(a, b) {
   const key = `r:${a.lat},${a.lng}>${b.lat},${b.lng}`;
   return cached(key, 7 * 864e5, async () => {
     try {
-      const url = `${OSRM}/${a.lng},${a.lat};${b.lng},${b.lat}?overview=full&geometries=geojson`;
+      const url = `${OSRM}/${a.lng},${a.lat};${b.lng},${b.lat}?overview=full&geometries=geojson&alternatives=false&continue_straight=true`;
       const r = await fetch(url);
       if (!r.ok) throw new Error('osrm ' + r.status);
       const j = await r.json();

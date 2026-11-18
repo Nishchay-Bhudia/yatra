@@ -1,6 +1,7 @@
 // ─────────────────────────────────────────────────────────────
 //  EDIT ME: all stops, days and events live here.
-//  Coordinates are approximate pins – nudge lat/lng if a pin is off.
+//  Verified pins: Chhapaiya, Gupteshwar, Muktinath, Galeshwar (3 km N of Beni), Modibeni (Modi Khola mouth).
+//  Still approximate: Khokhra and Mahashila. Nudge lat/lng if a pin is off.
 //  tz = UTC offset in minutes (India 330, Nepal 345).
 // ─────────────────────────────────────────────────────────────
 const IN = 330, NP = 345;
@@ -8,12 +9,12 @@ const IN = 330, NP = 345;
 export const STOPS = {
   lko:       { emoji: '✈️', lat: 26.7606, lng: 80.8893, tz: IN, name: { en: 'Lucknow Airport', gu: 'લખનૌ એરપોર્ટ', hi: 'लखनऊ एयरपोर्ट' } },
   ayodhya:   { emoji: '🛕', lat: 26.7955, lng: 82.1943, tz: IN, name: { en: 'Ayodhya', gu: 'અયોધ્યા', hi: 'अयोध्या' } },
-  chhapaiya: { emoji: '🏡', lat: 26.8120, lng: 82.3330, tz: IN, name: { en: 'Chhapaiya', gu: 'છપૈયા', hi: 'छपैया' } },
+  chhapaiya: { emoji: '🏡', lat: 26.9658, lng: 82.3897, tz: IN, name: { en: 'Chhapaiya', gu: 'છપૈયા', hi: 'छपैया' } },
   khokhra:   { emoji: '🌾', lat: 28.0500, lng: 81.6170, tz: NP, name: { en: 'Khokhra', gu: 'ખોખરા', hi: 'खोखरा' } },
-  gupteshwar:{ emoji: '🕉️', lat: 28.1886, lng: 83.9640, tz: NP, name: { en: 'Gupteshwar', gu: 'ગુપ્તેશ્વર', hi: 'गुप्तेश्वर' } },
-  galeshwar: { emoji: '🏞️', lat: 28.5800, lng: 83.6100, tz: NP, name: { en: 'Galeshwar', gu: 'ગલેશ્વર', hi: 'गलेश्वर' } },
+  gupteshwar:{ emoji: '🕉️', lat: 28.1896, lng: 83.9578, tz: NP, name: { en: 'Gupteshwar', gu: 'ગુપ્તેશ્વર', hi: 'गुप्तेश्वर' } },
+  galeshwar: { emoji: '🏞️', lat: 28.3800, lng: 83.5670, tz: NP, name: { en: 'Galeshwar', gu: 'ગલેશ્વર', hi: 'गलेश्वर' } },
   muktinath: { emoji: '🏔️', lat: 28.8168, lng: 83.8717, tz: NP, name: { en: 'Muktinath', gu: 'મુક્તિનાથ', hi: 'मुक्तिनाथ' } },
-  modibeni:  { emoji: '🧘', lat: 28.3450, lng: 83.5700, tz: NP, name: { en: 'Modibeni · Gopalyogi Ashram', gu: 'મોદીબેની · ગોપાલયોગી આશ્રમ', hi: 'मोदीबेनी · गोपालयोगी आश्रम' } },
+  modibeni:  { emoji: '🧘', lat: 28.2050, lng: 83.6700, tz: NP, name: { en: 'Modibeni · Gopalyogi Ashram', gu: 'મોદીબેની · ગોપાલયોગી આશ્રમ', hi: 'मोदीबेनी · गोपालयोगी आश्रम' } },
   mahashila: { emoji: '🪨', lat: 28.3550, lng: 83.5650, tz: NP, name: { en: 'Mahashila', gu: 'મહાશીલા', hi: 'महाशिला' } },
 };
 
