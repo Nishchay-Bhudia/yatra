@@ -6,7 +6,7 @@ import { getRoute, getElevation, classifyTerrain, TERRAIN, getWeather, weatherFo
 import { toMs, hhmm, fmtClock, fmtDur, splitDur, hourKey } from '../lib/time';
 import { useStored } from '../lib/useStored';
 
-export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, active, onSelect }) {
+export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
   const from = STOPS[fromId], to = STOPS[toId];
   const id = `${day.date}:${fromId}>${toId}`;
   const [route, setRoute] = useState(null);
@@ -62,8 +62,7 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, activ
   const wi = w ? wmo(w.code) : null;
 
   return (
-    <motion.section layout className={`card leg ${active ? 'active' : ''}`} onClick={onSelect}
-      initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ type: 'spring', stiffness: 220, damping: 22, delay: legIdx * 0.08 }}>
+    <div className="leg">
       <header className="leg-head">
         <span className="leg-from">{from.emoji} {pick(from.name, lang)}</span>
         <span className="leg-arrow">➜</span>
@@ -82,7 +81,7 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, activ
         <div className="eta-row">
           <label className="leave">
             <span>{t('leaveAt')} <em>({from.tz === 330 ? 'IST' : 'NPT'})</em></span>
-            <input type="time" value={leftAt ? hhmm(leftAt, from.tz) : depTime} onChange={(e) => { setLeftAt(null); setDepTime(e.target.value); }} onClick={(e) => e.stopPropagation()} />
+            <input type="time" value={leftAt ? hhmm(leftAt, from.tz) : depTime} onChange={(e) => { setLeftAt(null); setDepTime(e.target.value); }} />
           </label>
           <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.92 }} className="btn go" onClick={(e) => { e.stopPropagation(); setLeftAt(Date.now()); }}>🚀 {t('leaveNow')}</motion.button>
           {leftAt && <button className="btn ghost" onClick={(e) => { e.stopPropagation(); setLeftAt(null); }}>↺ {t('resetLeave')}</button>}
@@ -126,8 +125,8 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, activ
         )}
       </div>
 
-      <div className="alerts" onClick={(e) => e.stopPropagation()}>
-        <h4>🚧 {t('delays')}</h4>
+      <div className="alerts" >
+        
         {alerts.length === 0 && !delay && <p className="ok">{t('noAlerts')}</p>}
         {alerts.map((a) => <motion.p key={a} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="alert">⚠️ {t(a)}</motion.p>)}
         {delay > 0 && <p className="alert user">🛑 {t('a_manual')}: +{num(delay, lang)} {t('min')}</p>}
@@ -136,8 +135,7 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, activ
           {delay > 0 && <button className="chip clear" onClick={() => setDelay(0)}>✕ {t('clearDelay')}</button>}
           <a className="chip live" href={live} target="_blank" rel="noreferrer">🚦 {t('liveTraffic')}</a>
         </div>
-        <p className="note">{t('trafficNote')}</p>
       </div>
-    </motion.section>
+    </div>
   );
 }
