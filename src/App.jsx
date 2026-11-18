@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { DAYS, STOPS } from './data/itinerary';
 import { LANGS, makeT, pick } from './i18n';
-import { useNow } from './lib/time';
+import { useNow, toMs } from './lib/time';
 import { useStored } from './lib/useStored';
 import MapView from './components/MapView';
 import LegCard from './components/LegCard';
@@ -32,17 +32,22 @@ export default function App() {
   const desktop = useDesktop();
   const [sel, setSel] = useState(null);
   const [hint, setHint] = useState(true);
+  const [base, setBase] = useStored('base', 'map');
+  const [manual, setManual] = useStored('visited', {});
   const drag = useDragControls();
   useEffect(() => { const id = setTimeout(() => setHint(false), 7000); return () => clearTimeout(id); }, []);
   useEffect(() => { if (sel) setHint(false); }, [sel]);
 
+  const visited = {};
+  Object.keys(STOPS).forEach((id) => { const f = STOP_DATES[id][0].date; const auto = toMs(f, '23:59', STOPS[id].tz) < now; visited[id] = manual[id] ?? auto; });
+  const doneLegs = new Set(LEGS.filter((l) => toMs(l.day.date, '23:59', STOPS[l.b].tz) < now).map((l) => l.id));
   const H = typeof window === 'undefined' ? 800 : window.innerHeight;
   const inset = { top: 70, left: 0, right: sel && desktop ? 440 : 0, bottom: sel && !desktop ? Math.min(H * 0.52, 420) : 0 };
   const leg = sel?.type === 'leg' ? LEGS.find((l) => l.id === sel.id) : null;
 
   return (
     <div className="app">
-      <MapView legs={LEGS} firstDay={FIRST_DAY} lang={lang} sel={sel} onSelect={setSel} inset={inset} />
+      <MapView legs={LEGS} firstDay={FIRST_DAY} lang={lang} t={t} sel={sel} onSelect={setSel} inset={inset} base={base} visited={visited} doneLegs={doneLegs} />
 
       <div className="floating">
         <motion.div className="brand" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}><span>🙏</span><b>{t('appName')}</b></motion.div>
@@ -56,6 +61,7 @@ export default function App() {
         </div>
       </div>
 
+      <button className="layerbtn" onClick={() => setBase({ map: 'terrain', terrain: 'sat', sat: 'map' }[base])} aria-label="map style">{{ map: '🗺️', terrain: '⛰️', sat: '🛰️' }[base]}</button>
       <AnimatePresence>{hint && !sel && <motion.div className="hint" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>👆 {t('pickStop')}</motion.div>}</AnimatePresence>
 
       <AnimatePresence mode="wait">
@@ -69,7 +75,7 @@ export default function App() {
             </div>
             <div className="pop-body">
               {leg ? <LegCard key={leg.id} legIdx={leg.idx} fromId={leg.a} toId={leg.b} day={leg.day} lang={lang} t={t} now={now} />
-                : <StopCard id={sel.id} dates={STOP_DATES[sel.id]} lang={lang} t={t} />}
+                : <StopCard id={sel.id} dates={STOP_DATES[sel.id]} lang={lang} t={t} now={now} visited={visited[sel.id]} onToggle={() => setManual({ ...manual, [sel.id]: !visited[sel.id] })} nextLegs={LEGS.filter((l) => l.a === sel.id)} onOpenLeg={(id) => setSel({ type: 'leg', id })} />}
             </div>
           </motion.div>
         )}

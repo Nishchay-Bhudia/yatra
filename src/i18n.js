@@ -89,6 +89,9 @@ const D = {
   factsT: { gu: 'રસપ્રદ વાતો', en: 'Fun facts', hi: 'रोचक बातें' },
   disclaimer: { gu: 'ટૂંકી પરંપરાગત માહિતી છે. વધુ ખાતરી માટે સંતો/માર્ગદર્શકને પૂછો.', en: 'Brief, tradition-based notes. Please confirm details with your sants or guide.', hi: 'संक्षिप्त परंपरागत जानकारी। पुष्टि के लिए संतों/मार्गदर्शक से पूछें।' },
   pickStop: { gu: 'નકશા પર પડાવ દબાવો', en: 'Tap a stop on the map', hi: 'नक्शे पर पड़ाव दबाएँ' },
+  visitedT: { gu: 'દર્શન થઈ ગયા ✓', en: 'Visited ✓', hi: 'दर्शन हो गए ✓' },
+  markVisited: { gu: 'દર્શન થયા તરીકે ટિક કરો', en: 'Tick as visited', hi: 'दर्शन हुए – टिक करें' },
+  nextLegs: { gu: 'આગળ જવા માટે ETA', en: 'Next: get ETA', hi: 'आगे: ETA देखें' },
   footer: { gu: 'ડેટા: Open-Meteo · OSRM · OpenStreetMap — બધું મફત', en: 'Data: Open-Meteo · OSRM · OpenStreetMap — all free', hi: 'डेटा: Open-Meteo · OSRM · OpenStreetMap — सब मुफ़्त' },
 };
 

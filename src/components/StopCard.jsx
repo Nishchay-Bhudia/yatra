@@ -4,9 +4,9 @@ import { STOPS } from '../data/itinerary';
 import { PLACES, HINDU } from '../data/places';
 import { pick, num } from '../i18n';
 import { getWeather, weatherFor, wmo } from '../lib/api';
-import { fmtDate } from '../lib/time';
+import { fmtDate, toMs } from '../lib/time';
 
-export default function StopCard({ id, dates, lang, t }) {
+export default function StopCard({ id, dates, lang, t, now, visited, onToggle, nextLegs, onOpenLeg }) {
   const s = STOPS[id], p = PLACES[id];
   const [di, setDi] = useState(0);
   const [wx, setWx] = useState(undefined);
@@ -21,7 +21,7 @@ export default function StopCard({ id, dates, lang, t }) {
       <div className="sc-head">
         <motion.span className="sc-emoji" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 3 }}>{s.emoji}</motion.span>
         <div><h3>{pick(s.name, lang)}</h3>
-          <div className="chips">{dates.map((d, i) => <button key={d.date} className={`chip ${i === di ? 'on' : ''}`} onClick={() => setDi(i)}>{fmtDate(d.date, lang)}</button>)}</div>
+          <div className="chips">{dates.map((d, i) => <button key={d.date} className={`chip ${i === di ? 'on' : ''}`} onClick={() => setDi(i)}>{toMs(d.date, '23:59', s.tz) < now ? '✓ ' : ''}{fmtDate(d.date, lang)}</button>)}</div>
         </div>
       </div>
       <div className="wxrow">
@@ -34,6 +34,10 @@ export default function StopCard({ id, dates, lang, t }) {
             <span className="mini">🌅 {num(w.sunrise, lang)}</span>
           </>
         )}
+      </div>
+      <div className="actions">
+        <button className={`vbtn ${visited ? 'on' : ''}`} onClick={onToggle}>{visited ? t('visitedT') : '○ ' + t('markVisited')}</button>
+        {nextLegs.map((l) => <button key={l.id} className="chip live" onClick={() => onOpenLeg(l.id)}>🚗 ➜ {pick(STOPS[l.b].name, lang).split('·')[0]}</button>)}
       </div>
       {p && <p className="about">{pick(p.about, lang)}</p>}
       {p && (
