@@ -79,6 +79,14 @@ const D = {
   w_snow: { gu: 'બરફ', en: 'Snow', hi: 'बर्फ़' },
   w_showers: { gu: 'ઝાપટાં', en: 'Showers', hi: 'बौछारें' },
   w_storm: { gu: 'વાવાઝોડું', en: 'Thunderstorm', hi: 'तूफ़ान' },
+  tabJourney: { gu: 'પ્રવાસ', en: 'Journey', hi: 'यात्रा' },
+  tabWeather: { gu: 'હવામાન', en: 'Weather', hi: 'मौसम' },
+  tabStory: { gu: 'મહિમા', en: 'Story', hi: 'महिमा' },
+  whatIs: { gu: 'આ સ્થળ વિશે', en: 'About this place', hi: 'इस स्थान के बारे में' },
+  nilkanthT: { gu: 'નીલકંઠવર્ણી અને સ્વામિનારાયણ', en: 'Nilkanth Varni & Swaminarayan', hi: 'नीलकंठवर्णी और स्वामिनारायण' },
+  factsT: { gu: 'રસપ્રદ વાતો', en: 'Fun facts', hi: 'रोचक बातें' },
+  disclaimer: { gu: 'ટૂંકી પરંપરાગત માહિતી છે. વધુ ખાતરી માટે સંતો/માર્ગદર્શકને પૂછો.', en: 'Brief, tradition-based notes. Please confirm details with your sants or guide.', hi: 'संक्षिप्त परंपरागत जानकारी। पुष्टि के लिए संतों/मार्गदर्शक से पूछें।' },
+  pickStop: { gu: 'નકશા પર પડાવ દબાવો', en: 'Tap a stop on the map', hi: 'नक्शे पर पड़ाव दबाएँ' },
   footer: { gu: 'ડેટા: Open-Meteo · OSRM · OpenStreetMap — બધું મફત', en: 'Data: Open-Meteo · OSRM · OpenStreetMap — all free', hi: 'डेटा: Open-Meteo · OSRM · OpenStreetMap — सब मुफ़्त' },
 };
 
