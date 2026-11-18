@@ -1,0 +1,93 @@
+export const LANGS = [
+  { id: 'gu', label: 'ગુજરાતી' },
+  { id: 'en', label: 'English' },
+  { id: 'hi', label: 'हिन्दी' },
+];
+
+const D = {
+  jsn: { gu: 'જય સ્વામિનારાયણ', en: 'Jay Swaminarayan', hi: 'जय स्वामिनारायण' },
+  appName: { gu: 'યાત્રા', en: 'Yatra', hi: 'यात्रा' },
+  tagline: { gu: 'દરેક પડાવનું હવામાન, અંતર, રસ્તો અને નકશો', en: 'Weather, roads, terrain & map for every stop', hi: 'हर पड़ाव का मौसम, दूरी, रास्ता और नक्शा' },
+  startsIn: { gu: 'યાત્રા શરૂ થવાને', en: 'Yatra begins in', hi: 'यात्रा शुरू होने में' },
+  day: { gu: 'દિવસ', en: 'Day', hi: 'दिन' },
+  d: { gu: 'દિ', en: 'd', hi: 'दि' }, h: { gu: 'ક', en: 'h', hi: 'घं' }, m: { gu: 'મિ', en: 'm', hi: 'मि' }, s: { gu: 'સે', en: 's', hi: 'से' },
+  todayIsDay: { gu: 'આજે યાત્રાનો દિવસ', en: 'Today is yatra day', hi: 'आज यात्रा का दिन' },
+  yatraDone: { gu: 'યાત્રા સંપન્ન 🙏', en: 'Yatra complete 🙏', hi: 'यात्रा संपन्न 🙏' },
+  stayDay: { gu: 'આજે એક જ સ્થળે રોકાણ', en: 'Staying put today', hi: 'आज एक ही स्थान पर ठहराव' },
+  stops: { gu: 'પડાવ', en: 'Stops', hi: 'पड़ाव' },
+  drive: { gu: 'ડ્રાઇવ', en: 'Drive', hi: 'ड्राइव' },
+  distance: { gu: 'અંતર', en: 'Distance', hi: 'दूरी' },
+  km: { gu: 'કિમી', en: 'km', hi: 'किमी' },
+  terrain: { gu: 'રસ્તાનો પ્રકાર', en: 'Terrain', hi: 'रास्ते का प्रकार' },
+  climb: { gu: 'ચઢાણ', en: 'Climb', hi: 'चढ़ाई' },
+  highest: { gu: 'સૌથી ઊંચું', en: 'Highest', hi: 'सबसे ऊँचा' },
+  weatherAt: { gu: 'હવામાન', en: 'Weather', hi: 'मौसम' },
+  atArrival: { gu: 'પહોંચતી વખતે', en: 'At arrival', hi: 'पहुँचते समय' },
+  rain: { gu: 'વરસાદ', en: 'Rain', hi: 'बारिश' },
+  wind: { gu: 'પવન', en: 'Wind', hi: 'हवा' },
+  sunrise: { gu: 'સૂર્યોદય', en: 'Sunrise', hi: 'सूर्योदय' },
+  sunset: { gu: 'સૂર્યાસ્ત', en: 'Sunset', hi: 'सूर्यास्त' },
+  noForecast: { gu: 'આ તારીખનું અનુમાન હજુ ઉપલબ્ધ નથી', en: 'Forecast not available for this date yet', hi: 'इस तारीख का पूर्वानुमान अभी उपलब्ध नहीं' },
+  leaveAt: { gu: 'નીકળવાનો સમય', en: 'Leaving at', hi: 'निकलने का समय' },
+  leaveNow: { gu: 'હમણાં નીકળ્યા', en: "I'm leaving now", hi: 'अभी निकल रहे हैं' },
+  resetLeave: { gu: 'ફરી ગોઠવો', en: 'Reset', hi: 'रीसेट' },
+  arriveBy: { gu: 'પહોંચવાનો સમય', en: 'You arrive at', hi: 'पहुँचने का समय' },
+  localTime: { gu: 'ત્યાંના સમય મુજબ', en: 'local time', hi: 'स्थानीय समय' },
+  departsIn: { gu: 'નીકળવાને', en: 'Departs in', hi: 'निकलने में' },
+  arrivingIn: { gu: 'પહોંચવાને', en: 'Arriving in', hi: 'पहुँचने में' },
+  arrived: { gu: 'પહોંચી ગયા! 🎉', en: 'Arrived! 🎉', hi: 'पहुँच गए! 🎉' },
+  onTheRoad: { gu: 'રસ્તામાં છો', en: 'On the road', hi: 'रास्ते में' },
+  delays: { gu: 'રસ્તામાં વિલંબ / અવરોધ', en: 'Delays & road alerts', hi: 'देरी और रास्ते की सूचना' },
+  addDelay: { gu: 'વિલંબ ઉમેરો', en: 'Add delay', hi: 'देरी जोड़ें' },
+  clearDelay: { gu: 'દૂર કરો', en: 'Clear', hi: 'हटाएँ' },
+  min: { gu: 'મિનિટ', en: 'min', hi: 'मिनट' },
+  etaBreakdown: { gu: 'સમયની ગણતરી', en: 'How we got this', hi: 'समय का हिसाब' },
+  baseDrive: { gu: 'ગૂગલ-જેવી ડ્રાઇવ', en: 'Base drive', hi: 'सामान्य ड्राइव' },
+  terrainAdj: { gu: 'ઘાટ/ચઢાણ સમાયોજન', en: 'Hill & terrain adjustment', hi: 'पहाड़/चढ़ाई समायोजन' },
+  weatherAdj: { gu: 'હવામાન સમાયોજન', en: 'Weather adjustment', hi: 'मौसम समायोजन' },
+  borderAdj: { gu: 'સરહદ ક્રોસિંગ', en: 'Border crossing', hi: 'सीमा पार' },
+  yourDelay: { gu: 'તમે ઉમેરેલો વિલંબ', en: 'Delay you added', hi: 'आपकी जोड़ी देरी' },
+  total: { gu: 'કુલ', en: 'Total', hi: 'कुल' },
+  liveTraffic: { gu: 'લાઇવ ટ્રાફિક ખોલો', en: 'Open live traffic', hi: 'लाइव ट्रैफ़िक खोलें' },
+  noAlerts: { gu: 'હાલ કોઈ ચેતવણી નથી ✨', en: 'No alerts right now ✨', hi: 'अभी कोई चेतावनी नहीं ✨' },
+  trafficNote: { gu: 'મફત લાઇવ ટ્રાફિક ઉપલબ્ધ નથી. હવામાન પરથી ચેતવણી મળે છે; રસ્તામાં અવરોધ દેખાય તો વિલંબ જાતે ઉમેરો.', en: 'No free live-traffic feed exists. Alerts come from weather; if you hit a block, add the delay by hand.', hi: 'मुफ़्त लाइव ट्रैफ़िक उपलब्ध नहीं। चेतावनी मौसम से मिलती है; रुकावट दिखे तो देरी खुद जोड़ें।' },
+  estimated: { gu: 'અંદાજિત (ઑફલાઇન)', en: 'Estimated (offline)', hi: 'अनुमानित (ऑफ़लाइन)' },
+  loading: { gu: 'લોડ થઈ રહ્યું છે…', en: 'Loading…', hi: 'लोड हो रहा है…' },
+  map: { gu: 'નકશો', en: 'Map', hi: 'नक्शा' },
+  // terrain
+  t_plains: { gu: 'સપાટ મેદાન', en: 'Flat plains', hi: 'समतल मैदान' },
+  t_rolling: { gu: 'ટેકરીઓ', en: 'Rolling hills', hi: 'पहाड़ियाँ' },
+  t_mountain: { gu: 'પહાડી રસ્તો', en: 'Mountain road', hi: 'पहाड़ी रास्ता' },
+  t_himalaya: { gu: 'ઊંચા હિમાલય', en: 'High Himalaya', hi: 'ऊँचा हिमालय' },
+  // alerts
+  a_rain: { gu: 'વરસાદની શક્યતા – રસ્તા લપસણા, ભૂસ્ખલનનું જોખમ', en: 'Rain likely – slippery roads, landslide risk', hi: 'बारिश संभव – फिसलन, भूस्खलन का जोखिम' },
+  a_snow: { gu: 'બરફવર્ષા – ચેઇન/સાવધાની જરૂરી', en: 'Snow expected – drive with caution', hi: 'बर्फ़बारी – सावधानी से चलें' },
+  a_fog: { gu: 'ધુમ્મસ – દૃશ્યતા ઓછી, ધીમે ચલાવો', en: 'Fog – low visibility, go slow', hi: 'कोहरा – कम दृश्यता, धीरे चलें' },
+  a_wind: { gu: 'તેજ પવન', en: 'Strong winds', hi: 'तेज़ हवा' },
+  a_storm: { gu: 'વીજળી સાથે વાવાઝોડું', en: 'Thunderstorm', hi: 'आँधी-तूफ़ान' },
+  a_cold: { gu: 'થીજવતી ઠંડી – રસ્તા પર બરફનું જોખમ', en: 'Freezing – ice on roads possible', hi: 'जमा देने वाली ठंड – सड़क पर बर्फ़' },
+  a_altitude: { gu: 'ઊંચાઈ ૨૫૦૦ મી. ઉપર – ધીમે ચઢો, પાણી પીવો', en: 'Above 2,500 m – ascend slowly, hydrate (altitude sickness)', hi: '2,500 मी. से ऊपर – धीरे चढ़ें, पानी पिएँ' },
+  a_border: { gu: 'ભારત–નેપાળ સરહદ: ડોક્યુમેન્ટ તૈયાર રાખો', en: 'India–Nepal border: keep documents ready', hi: 'भारत–नेपाल सीमा: दस्तावेज़ तैयार रखें' },
+  a_manual: { gu: 'તમે નોંધેલો વિલંબ', en: 'Delay you reported', hi: 'आपकी दी गई देरी' },
+  // weather
+  w_clear: { gu: 'સ્વચ્છ આકાશ', en: 'Clear sky', hi: 'साफ़ आसमान' },
+  w_partly: { gu: 'આંશિક વાદળછાયું', en: 'Partly cloudy', hi: 'आंशिक बादल' },
+  w_cloudy: { gu: 'વાદળછાયું', en: 'Overcast', hi: 'बादल छाए' },
+  w_fog: { gu: 'ધુમ્મસ', en: 'Fog', hi: 'कोहरा' },
+  w_drizzle: { gu: 'ઝરમર', en: 'Drizzle', hi: 'बूँदाबाँदी' },
+  w_rain: { gu: 'વરસાદ', en: 'Rain', hi: 'बारिश' },
+  w_snow: { gu: 'બરફ', en: 'Snow', hi: 'बर्फ़' },
+  w_showers: { gu: 'ઝાપટાં', en: 'Showers', hi: 'बौछारें' },
+  w_storm: { gu: 'વાવાઝોડું', en: 'Thunderstorm', hi: 'तूफ़ान' },
+  footer: { gu: 'ડેટા: Open-Meteo · OSRM · OpenStreetMap — બધું મફત', en: 'Data: Open-Meteo · OSRM · OpenStreetMap — all free', hi: 'डेटा: Open-Meteo · OSRM · OpenStreetMap — सब मुफ़्त' },
+};
+
+export const makeT = (lang) => (k) => (D[k] && (D[k][lang] || D[k].en)) || k;
+export const pick = (o, lang) => (o && (o[lang] || o.en)) || '';
+const GU = '૦૧૨૩૪૫૬૭૮૯', HI = '०१२३४५६७८९';
+export const num = (v, lang) => {
+  const s = String(v);
+  if (lang === 'en') return s;
+  const map = lang === 'gu' ? GU : HI;
+  return s.replace(/\d/g, (c) => map[+c]);
+};
