@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { STOPS } from '../data/itinerary';
-import { PLACES } from '../data/places';
+import { PLACES, HINDU } from '../data/places';
 import { pick, num } from '../i18n';
 import { getWeather, weatherFor, wmo } from '../lib/api';
 import { fmtDate } from '../lib/time';
@@ -38,10 +38,11 @@ export default function StopCard({ id, dates, lang, t }) {
       {p && <p className="about">{pick(p.about, lang)}</p>}
       {p && (
         <>
-          <button className="morebtn" onClick={() => setMore(!more)}>🪷 {t('nilkanthT')} {more ? '▴' : '▾'}</button>
+          <button className="morebtn" onClick={() => setMore(!more)}>🪷 {t('mahima')} {more ? '▴' : '▾'}</button>
           {more && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="more">
-              <div className="nk"><p>{pick(p.nilkanth, lang)}</p></div>
+              {HINDU[id] && <div className="hd"><h5>🕉️ {t('hinduT')}</h5><p>{pick(HINDU[id], lang)}</p></div>}
+              <div className="nk"><h5>🪷 {t('nilkanthT')}</h5><p>{pick(p.nilkanth, lang)}</p></div>
               <ul>{(p.facts[lang] || p.facts.en).map((f, i) => <li key={i}>🎈 {f}</li>)}</ul>
               <p className="note">{t('disclaimer')}</p>
             </motion.div>

@@ -124,3 +124,43 @@ export const PLACES = {
       hi: ['हिंदू परंपरा में शालिग्राम शिला की पूजा साक्षात भगवान विष्णु के रूप में होती है।'] },
   },
 };
+
+// General Sanatan Dharma significance (Shiva, Vishnu, Ram, Shankaracharya…)
+export const HINDU = {
+  lko: {
+    en: 'Close by is Naimisharanya, where Sutji is said to have narrated the Puranas to 88,000 rishis. Awadh is the heartland of the Ramayana.',
+    gu: 'નજીકમાં નૈમિષારણ્ય છે, જ્યાં સૂતજીએ ૮૮,૦૦૦ ઋષિઓને પુરાણો સંભળાવ્યાં હોવાનું મનાય છે. અવધ રામાયણની ભૂમિ છે.',
+    hi: 'पास में नैमिषारण्य है, जहाँ सूतजी ने 88,000 ऋषियों को पुराण सुनाए माने जाते हैं। अवध रामायण की भूमि है।' },
+  ayodhya: {
+    en: 'One of the seven Sapta Puris (Ayodhya, Mathura, Maya, Kashi, Kanchi, Avantika, Dwarka). Tulsidas began the Ramcharitmanas here on Ram Navami in 1574. “Ram Naam” is the mahamantra of countless devotees.',
+    gu: 'સાત સપ્તપુરીઓ (અયોધ્યા, મથુરા, માયા, કાશી, કાંચી, અવંતિકા, દ્વારકા)માંની એક. તુલસીદાસજીએ ૧૫૭૪માં રામનવમીએ અહીં રામચરિતમાનસની શરૂઆત કરી. “રામ નામ” અગણિત ભક્તોનો મહામંત્ર છે.',
+    hi: 'सात सप्तपुरियों (अयोध्या, मथुरा, माया, काशी, कांची, अवंतिका, द्वारका) में से एक। तुलसीदासजी ने 1574 में रामनवमी को यहीं रामचरितमानस आरंभ किया। “राम नाम” असंख्य भक्तों का महामंत्र है।' },
+  chhapaiya: {
+    en: 'This is ancient Kosala, the land of the Sarayu, the same sacred geography as Shri Ram’s Ayodhya. Dharmadev’s family were Sarvariya (Sarayu-region) Brahmins.',
+    gu: 'આ પ્રાચીન કોશલ છે, સરયૂની ભૂમિ – શ્રીરામની અયોધ્યા જેવો જ પવિત્ર પ્રદેશ. ધર્મદેવનું કુટુંબ સરવરિયા (સરયૂ પ્રદેશના) બ્રાહ્મણ હતું.',
+    hi: 'यह प्राचीन कोशल है, सरयू की भूमि – श्रीराम की अयोध्या का ही पावन क्षेत्र। धर्मदेव का परिवार सरवरिया (सरयू क्षेत्र के) ब्राह्मण थे।' },
+  khokhra: {
+    en: 'In Sanatan Dharma a tirtha-yatra is itself a tapas that purifies the mind. Adi Shankaracharya walked across all of India to revive pilgrimage and dharma.',
+    gu: 'સનાતન ધર્મમાં તીર્થયાત્રા પોતે જ મનને શુદ્ધ કરનારું તપ છે. આદિ શંકરાચાર્યજી ધર્મ અને તીર્થોને પુનર્જીવિત કરવા આખા ભારતમાં પગપાળા ફર્યા.',
+    hi: 'सनातन धर्म में तीर्थयात्रा स्वयं मन को शुद्ध करने वाला तप है। आदि शंकराचार्य ने धर्म और तीर्थों के पुनरुद्धार के लिए पूरे भारत की पदयात्रा की।' },
+  gupteshwar: {
+    en: 'Mahadev, Lord Shiva, is worshipped here as a hidden (gupta) Shivling. Chant Om Namah Shivaya, the Panchakshari mantra, and “Har Har Mahadev”.',
+    gu: 'અહીં ભગવાન મહાદેવ ગુપ્ત શિવલિંગ રૂપે પૂજાય છે. “ૐ નમઃ શિવાય” (પંચાક્ષરી મંત્ર) અને “હર હર મહાદેવ”નો જાપ કરો.',
+    hi: 'यहाँ भगवान महादेव गुप्त शिवलिंग रूप में पूजे जाते हैं। “ॐ नमः शिवाय” (पंचाक्षरी मंत्र) और “हर हर महादेव” का जाप करें।' },
+  galeshwar: {
+    en: 'The Puranas tell how Vrinda’s curse made Lord Vishnu take the form of the Shaligram stone; the Shaligram is wed to Tulsi every year at Tulsi Vivah.',
+    gu: 'પુરાણો કહે છે કે વૃંદાના શાપથી ભગવાન વિષ્ણુ શાલિગ્રામ શિલા રૂપે થયા; દર વર્ષે તુલસી વિવાહમાં શાલિગ્રામના તુલસી સાથે લગ્ન થાય છે.',
+    hi: 'पुराणों के अनुसार वृंदा के शाप से भगवान विष्णु शालिग्राम शिला बने; हर वर्ष तुलसी विवाह में शालिग्राम का तुलसी से विवाह होता है।' },
+  muktinath: {
+    en: 'A Divya Desam of the Alvars (Thirumangai Alvar sang of Saligramam), and a Shakti Peeth (Gandaki Chandi) in some traditions. Adi Shankaracharya set up Jyotirmath near Badrinath, anchoring dharma in these same Himalayas.',
+    gu: 'અલવારોનું દિવ્ય દેશ (તિરુમંગૈ અલવારે સાલિગ્રામનું ગાન કર્યું) અને કેટલીક પરંપરામાં શક્તિપીઠ (ગંડકી ચંડી). આદિ શંકરાચાર્યજીએ બદ્રીનાથ પાસે જ્યોતિર્મઠની સ્થાપના કરી – આ જ હિમાલયમાં ધર્મનો આધાર.',
+    hi: 'आलवारों का दिव्य देश (तिरुमंगै आलवार ने सालिग्रामम का गान किया) और कुछ परंपराओं में शक्तिपीठ (गंडकी चंडी)। आदि शंकराचार्य ने बद्रीनाथ के पास ज्योतिर्मठ की स्थापना की – इन्हीं हिमालयों में धर्म का आधार।' },
+  modibeni: {
+    en: 'A confluence (sangam) is a tirtha: like Prayag’s Triveni, bathing where rivers meet is believed to cleanse sins. Yoga here echoes Patanjali’s Yoga Sutras.',
+    gu: 'સંગમ એ જ તીર્થ: પ્રયાગના ત્રિવેણીની જેમ નદીઓના મિલન સ્થાને સ્નાન પાપ ધોનારું મનાય છે. અહીંનો યોગ પતંજલિના યોગસૂત્રોને યાદ અપાવે છે.',
+    hi: 'संगम स्वयं तीर्थ है: प्रयाग के त्रिवेणी की तरह नदियों के मिलन पर स्नान पापनाशक माना जाता है। यहाँ का योग पतंजलि के योगसूत्रों की याद दिलाता है।' },
+  mahashila: {
+    en: 'A Shaligram is considered self-manifest (swayambhu), so it is worshipped without needing a pran-pratishtha. The Padma and Brahma Vaivarta Puranas praise its worship.',
+    gu: 'શાલિગ્રામ સ્વયંભૂ ગણાય છે, તેથી પ્રાણપ્રતિષ્ઠા વિના પૂજાય છે. પદ્મ અને બ્રહ્મવૈવર્ત પુરાણોમાં તેની પૂજાનો મહિમા ગાયો છે.',
+    hi: 'शालिग्राम स्वयंभू माना जाता है, इसलिए प्राण-प्रतिष्ठा के बिना पूजित है। पद्म और ब्रह्मवैवर्त पुराणों में इसकी पूजा की महिमा गाई गई है।' },
+};

@@ -146,3 +146,7 @@ input[type=time]{border:2px solid var(--line);border-radius:12px;padding:4px 10p
 .place li{background:#fff;border-radius:14px;padding:8px 12px;margin-bottom:8px;box-shadow:0 3px 8px rgba(47,100,200,.1);line-height:1.4}
 footer{text-align:center;color:var(--muted);font-size:12px;margin-top:6px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.more h5{font-size:14px;padding-top:8px}
+.hd{background:linear-gradient(135deg,#fff6dc,#ffe9c2);border-radius:18px;padding:2px 14px 10px;margin-top:6px}.hd p{line-height:1.45;margin-top:2px}
+.nk p{margin-top:2px}
