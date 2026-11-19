@@ -5,14 +5,16 @@ import { PLACES, HINDU } from '../data/places';
 import { pick, num } from '../i18n';
 import { getWeather, weatherFor, wmo, haversineKm } from '../lib/api';
 import { fmtDate, toMs } from '../lib/time';
+import { useGeo } from '../lib/geo';
 
 export default function StopCard({ id, dates, lang, t, now, visited, onToggle, nextLegs, onOpenLeg, me }) {
+  const geoVer = useGeo();
   const s = STOPS[id], p = PLACES[id];
   const [di, setDi] = useState(0);
   const [wx, setWx] = useState(undefined);
   const [more, setMore] = useState(false);
   useEffect(() => { setDi(0); setMore(false); }, [id]);
-  useEffect(() => { let d = false; setWx(undefined); getWeather(s).then((w) => !d && setWx(w)).catch(() => !d && setWx(null)); return () => { d = true; }; }, [id]);
+  useEffect(() => { let d = false; setWx(undefined); getWeather(s).then((w) => !d && setWx(w)).catch(() => !d && setWx(null)); return () => { d = true; }; }, [id, geoVer]);
   const date = dates[di]?.date;
   const w = wx && date ? weatherFor(wx, date) : null;
   const m = w ? wmo(w.code) : null;

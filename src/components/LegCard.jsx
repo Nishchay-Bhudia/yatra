@@ -5,8 +5,10 @@ import { pick, num } from '../i18n';
 import { getRoute, getElevation, classifyTerrain, TERRAIN, getWeather, weatherFor, weatherImpact, wmo } from '../lib/api';
 import { toMs, hhmm, fmtClock, fmtDur, splitDur, hourKey } from '../lib/time';
 import { useStored } from '../lib/useStored';
+import { getVia, useGeo } from '../lib/geo';
 
 export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
+  const geoVer = useGeo();
   const from = STOPS[fromId], to = STOPS[toId];
   const id = `${day.date}:${fromId}>${toId}`;
   const [route, setRoute] = useState(null);
@@ -25,13 +27,13 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
 
   useEffect(() => {
     let dead = false;
-    getRoute(from, to).then((r) => {
+    getRoute(from, to, getVia(fromId, toId)).then((r) => {
       if (dead) return; setRoute(r);
       getElevation(r.coords).then((e) => !dead && setElev(e)).catch(() => {});
     });
     getWeather(to).then((w) => !dead && setWx(w)).catch(() => {});
     return () => { dead = true; };
-  }, [fromId, toId]);
+  }, [fromId, toId, geoVer]);
 
   const terrainKey = classifyTerrain(elev);
   const terr = TERRAIN[terrainKey];
@@ -57,7 +59,8 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
 
   const alerts = [...impact.alerts];
   if (border) alerts.push('a_border');
-  const live = `https://www.google.com/maps/dir/?api=1&origin=${from.lat},${from.lng}&destination=${to.lat},${to.lng}&travelmode=driving`;
+  const wp = getVia(fromId, toId).map((v) => v.join(',')).join('|');
+  const live = `https://www.google.com/maps/dir/?api=1&origin=${from.lat},${from.lng}&destination=${to.lat},${to.lng}&travelmode=driving${wp ? '&waypoints=' + wp : ''}`;
   const w = arrW?.hour || (dayW && { temp: (dayW.max + dayW.min) / 2, code: dayW.code, pop: dayW.pop, wind: dayW.wind });
   const wi = w ? wmo(w.code) : null;
 
@@ -133,7 +136,7 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
         <div className="delay-btns">
           {[15, 30, 60].map((m) => <button key={m} className="chip" onClick={() => setDelay(delay + m)}>+{num(m, lang)} {t('min')}</button>)}
           {delay > 0 && <button className="chip clear" onClick={() => setDelay(0)}>✕ {t('clearDelay')}</button>}
-          <a className="chip live" href={live} target="_blank" rel="noreferrer">🚦 {t('liveTraffic')}</a>
+          <a className="chip live" href={live} target="_blank" rel="noreferrer">🧭 {t('navigate')}</a>
         </div>
       </div>
     </div>

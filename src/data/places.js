@@ -42,16 +42,19 @@ export const PLACES = {
       gu: ['રામનવમીએ જ જન્મ – શ્રીરામના જન્મદિવસે જ.', 'તમારી યાત્રા અહીંથી શરૂ અને અહીં જ પૂર્ણ: ૨૦મીએ આગમન, ૨૭મીએ પરત.'],
       hi: ['रामनवमी को ही जन्म – श्रीराम के जन्मदिन पर।', 'आपकी यात्रा यहीं से शुरू और यहीं पूर्ण: 20 को आगमन, 27 को वापसी।'] },
   },
-  khokhra: {
+  pokhara: {
     about: {
-      en: 'A travel halt on the way up to the Himalayan leg of the yatra. Rest well: the mountain roads begin tomorrow. (Story for this stop can be added in src/data/places.js.)',
-      gu: 'યાત્રાના હિમાલય ભાગ તરફ જતાં માર્ગનો વિશ્રામ સ્થાન. સારો આરામ કરજો, કાલથી પહાડી માર્ગ શરૂ. (આ સ્થળની માહિતી src/data/places.js માં ઉમેરી શકાય.)',
-      hi: 'यात्रा के हिमालयी चरण की ओर जाते हुए विश्राम का पड़ाव। अच्छा आराम करें, कल से पहाड़ी रास्ता शुरू। (इस स्थान की जानकारी src/data/places.js में जोड़ सकते हैं।)' },
+      en: 'Pokhara, in Kaski district, is Nepal’s lake city, set beneath the Annapurna range and the sacred fishtail peak of Machhapuchhre. It is the gateway to the Kali Gandaki valley and Muktinath.',
+      gu: 'પોખરા, કાસ્કી જિલ્લામાં, નેપાળનું સરોવર નગર છે – અન્નપૂર્ણા પર્વતમાળા અને પવિત્ર માછાપુછ્રે શિખરની તળેટીમાં. તે કાલી ગંડકી ખીણ અને મુક્તિનાથનું પ્રવેશદ્વાર છે.',
+      hi: 'पोखरा, कास्की जिले में, नेपाल का झीलों का शहर है – अन्नपूर्णा पर्वतमाला और पवित्र माछापुच्छ्रे शिखर की तलहटी में। यह काली गंडकी घाटी और मुक्तिनाथ का प्रवेश द्वार है।' },
     nilkanth: {
-      en: 'Nilkanth Varni’s own northward route into Nepal crossed the Terai plains before climbing into the mountains.',
-      gu: 'નીલકંઠવર્ણીનો નેપાળ તરફનો માર્ગ પણ પહાડો ચઢતા પહેલાં તરાઈના મેદાનોમાંથી પસાર થયો હતો.',
-      hi: 'नीलकंठवर्णी का नेपाल की ओर मार्ग भी पहाड़ चढ़ने से पहले तराई के मैदानों से गुज़रा था।' },
-    facts: { en: ['Carry warm layers: it gets much colder from here on.'], gu: ['ગરમ કપડાં સાથે રાખજો: અહીંથી આગળ ઠંડી વધે છે.'], hi: ['गर्म कपड़े साथ रखें: यहाँ से आगे ठंड बढ़ती है।'] },
+      en: 'The Gandaki region around Pokhara lies on the Himalayan route that Nilkanth Varni’s journey to Muktinath is remembered to have followed.',
+      gu: 'પોખરાની આસપાસનો ગંડકી પ્રદેશ એ હિમાલય માર્ગમાં આવે છે, જે માર્ગે નીલકંઠવર્ણીની મુક્તિનાથ યાત્રા સ્મરાય છે.',
+      hi: 'पोखरा के आसपास का गंडकी क्षेत्र उस हिमालयी मार्ग में आता है, जिस पर नीलकंठवर्णी की मुक्तिनाथ यात्रा स्मरण की जाती है।' },
+    facts: {
+      en: ['Machhapuchhre (“fishtail”) is considered sacred and has never been officially climbed.', 'Pokhara sits at only about 820 m, so the road to Muktinath climbs nearly 3,000 m.'],
+      gu: ['માછાપુછ્રે (“માછલીની પૂંછડી”) પવિત્ર ગણાય છે અને તેના પર ચઢાઈની સત્તાવાર મંજૂરી નથી.', 'પોખરા માત્ર ~૮૨૦ મી. પર છે, તેથી મુક્તિનાથનો માર્ગ લગભગ ૩,૦૦૦ મી. ચઢે છે.'],
+      hi: ['माछापुच्छ्रे (“मछली की पूँछ”) पवित्र माना जाता है और उस पर चढ़ाई की आधिकारिक अनुमति नहीं है।', 'पोखरा केवल ~820 मी. पर है, इसलिए मुक्तिनाथ का रास्ता लगभग 3,000 मी. चढ़ता है।'] },
   },
   gupteshwar: {
     about: {
@@ -111,7 +114,7 @@ export const PLACES = {
   },
   mahashila: {
     about: {
-      en: 'Mahashila, the “great rock”, is a sacred boulder revered in satsang tradition in the Kali Gandaki valley, where the mahapuja is performed.',
+      en: 'Mahashila (“great rock”) lies in Parbat district, in the Kali Gandaki valley, a sacred rock revered in satsang tradition where the mahapuja is performed.',
       gu: 'મહાશીલા એટલે “મહાન શિલા” – કાલી ગંડકી ખીણમાં સત્સંગ પરંપરામાં પૂજ્ય શિલા, જ્યાં મહાપૂજા થાય છે.',
       hi: 'महाशिला यानी “महान शिला” – काली गंडकी घाटी में सत्संग परंपरा में पूज्य शिला, जहाँ महापूजा होती है।' },
     nilkanth: {
@@ -139,10 +142,10 @@ export const HINDU = {
     en: 'This is ancient Kosala, the land of the Sarayu, the same sacred geography as Shri Ram’s Ayodhya. Dharmadev’s family were Sarvariya (Sarayu-region) Brahmins.',
     gu: 'આ પ્રાચીન કોશલ છે, સરયૂની ભૂમિ – શ્રીરામની અયોધ્યા જેવો જ પવિત્ર પ્રદેશ. ધર્મદેવનું કુટુંબ સરવરિયા (સરયૂ પ્રદેશના) બ્રાહ્મણ હતું.',
     hi: 'यह प्राचीन कोशल है, सरयू की भूमि – श्रीराम की अयोध्या का ही पावन क्षेत्र। धर्मदेव का परिवार सरवरिया (सरयू क्षेत्र के) ब्राह्मण थे।' },
-  khokhra: {
-    en: 'In Sanatan Dharma a tirtha-yatra is itself a tapas that purifies the mind. Adi Shankaracharya walked across all of India to revive pilgrimage and dharma.',
-    gu: 'સનાતન ધર્મમાં તીર્થયાત્રા પોતે જ મનને શુદ્ધ કરનારું તપ છે. આદિ શંકરાચાર્યજી ધર્મ અને તીર્થોને પુનર્જીવિત કરવા આખા ભારતમાં પગપાળા ફર્યા.',
-    hi: 'सनातन धर्म में तीर्थयात्रा स्वयं मन को शुद्ध करने वाला तप है। आदि शंकराचार्य ने धर्म और तीर्थों के पुनरुद्धार के लिए पूरे भारत की पदयात्रा की।' },
+  pokhara: {
+    en: 'On an island in Phewa Lake stands Tal Barahi, a temple of Goddess Barahi, a form of Shakti, reached by boat. Bindhyabasini is another old Shakti shrine in the city.',
+    gu: 'ફેવા સરોવરના ટાપુ પર તાલ બારાહી મંદિર છે – શક્તિના સ્વરૂપ બારાહી દેવીનું, હોડીથી પહોંચાય છે. શહેરમાં બિંધ્યાવાસિની પણ પ્રાચીન શક્તિ મંદિર છે.',
+    hi: 'फेवा झील के द्वीप पर ताल बाराही मंदिर है – शक्ति के रूप बाराही देवी का, नाव से पहुँचा जाता है। शहर में बिंध्यवासिनी भी प्राचीन शक्ति मंदिर है।' },
   gupteshwar: {
     en: 'Mahadev, Lord Shiva, is worshipped here as a hidden (gupta) Shivling. Chant Om Namah Shivaya, the Panchakshari mantra, and “Har Har Mahadev”.',
     gu: 'અહીં ભગવાન મહાદેવ ગુપ્ત શિવલિંગ રૂપે પૂજાય છે. “ૐ નમઃ શિવાય” (પંચાક્ષરી મંત્ર) અને “હર હર મહાદેવ”નો જાપ કરો.',

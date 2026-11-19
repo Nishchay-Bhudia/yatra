@@ -14,10 +14,11 @@ function cached(key, ttlMs, fn) {
       }
     } catch {}
     const v = await fn();
+    if (v && v.estimated) return v;
     try { localStorage.setItem('c:' + key, JSON.stringify({ t: Date.now(), v })); } catch {}
     return v;
   })();
-  p.catch(() => mem.delete(key));
+  p.then((v) => { if (v && v.estimated) mem.delete(key); }, () => mem.delete(key));
   mem.set(key, p);
   return p;
 }
@@ -29,20 +30,29 @@ export function haversineKm(a, b) {
   return 2 * R * Math.asin(Math.sqrt(x));
 }
 
-export function getRoute(a, b) {
-  const key = `r:${a.lat},${a.lng}>${b.lat},${b.lng}`;
+const ENDPOINTS = [
+  'https://router.project-osrm.org/route/v1/driving',
+  'https://routing.openstreetmap.de/routed-car/route/v1/driving',
+];
+export function getRoute(a, b, via = []) {
+  const pts = [[a.lat, a.lng], ...via, [b.lat, b.lng]];
+  const key = 'r2:' + pts.map((p) => `${(+p[0]).toFixed(5)},${(+p[1]).toFixed(5)}`).join('>');
   return cached(key, 7 * 864e5, async () => {
-    try {
-      const url = `${OSRM}/${a.lng},${a.lat};${b.lng},${b.lat}?overview=full&geometries=geojson&alternatives=false&continue_straight=true`;
-      const r = await fetch(url);
-      if (!r.ok) throw new Error('osrm ' + r.status);
-      const j = await r.json();
-      const rt = j.routes[0];
-      return { km: rt.distance / 1000, min: rt.duration / 60, coords: rt.geometry.coordinates.map(([lng, lat]) => [lat, lng]), estimated: false };
-    } catch {
-      const km = haversineKm(a, b) * 1.35;
-      return { km, min: (km / 42) * 60, coords: [[a.lat, a.lng], [b.lat, b.lng]], estimated: true };
+    const path = pts.map((p) => `${p[1]},${p[0]}`).join(';');
+    for (const ep of ENDPOINTS) {
+      try {
+        const r = await fetch(`${ep}/${path}?overview=full&geometries=geojson&alternatives=false&continue_straight=true`);
+        if (!r.ok) continue;
+        const j = await r.json();
+        if (j.code !== 'Ok' || !j.routes?.[0]) continue;
+        const rt = j.routes[0];
+        return { km: rt.distance / 1000, min: rt.duration / 60, coords: rt.geometry.coordinates.map(([lng, lat]) => [lat, lng]), estimated: false };
+      } catch {}
     }
+    let km = 0;
+    for (let i = 1; i < pts.length; i++) km += haversineKm({ lat: pts[i - 1][0], lng: pts[i - 1][1] }, { lat: pts[i][0], lng: pts[i][1] });
+    km *= 1.35;
+    return { km, min: (km / 42) * 60, coords: pts, estimated: true };
   });
 }
 
