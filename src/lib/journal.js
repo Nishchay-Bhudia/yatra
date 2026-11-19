@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 
 let dbp;
+try { navigator.storage?.persist?.(); } catch {} // ask the browser not to evict our data
 const db = () => (dbp ||= new Promise((res, rej) => {
   const r = indexedDB.open('yatra-journal', 1);
   r.onupgradeneeded = () => { r.result.createObjectStore('meta', { keyPath: 'id' }).createIndex('k', 'k'); r.result.createObjectStore('blobs', { keyPath: 'id' }); };
