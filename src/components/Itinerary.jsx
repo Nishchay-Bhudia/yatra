@@ -5,6 +5,7 @@ import { pick, num } from '../i18n';
 import { getRoute } from '../lib/api';
 import { fmtDate, fmtDur } from '../lib/time';
 import { getVia, gmapsPin, useGeo, isCustom } from '../lib/geo';
+import { useJournalCounts, listMeta, fmtTs } from '../lib/journal';
 
 const fmt = (s) => `${s.lat.toFixed(5)}, ${s.lng.toFixed(5)}`;
 
@@ -12,6 +13,13 @@ export default function Itinerary({ days, legs, lang, t, visited, onClose, onSho
   const ver = useGeo();
   const [rt, setRt] = useState({});
   const [copied, setCopied] = useState('');
+  const counts = useJournalCounts();
+  const exportNotes = async () => {
+    const all = (await listMeta(null)).reverse();
+    const nm = (k) => { const [ty, id] = k.split(':'); return ty === 'stop' ? STOPS[id]?.name.en : id.split('>').map((x) => STOPS[x]?.name.en).join(' ➜ '); };
+    const txt = all.map((i) => `[${new Date(i.ts).toLocaleString()}] ${nm(i.k)}${i.lat ? ` (${i.lat.toFixed(5)}, ${i.lng.toFixed(5)})` : ''}\n${i.type === 'photo' ? '📷 photo' : i.text}`).join('\n\n') || 'No notes yet';
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([txt], { type: 'text/plain' })); a.download = 'yatra-notes.txt'; a.click();
+  };
   useEffect(() => { setRt({}); legs.forEach((l) => getRoute(STOPS[l.a], STOPS[l.b], getVia(l.a, l.b)).then((r) => setRt((o) => ({ ...o, [l.id]: r })))); }, [ver]);
   const copy = (txt, k) => { navigator.clipboard?.writeText(txt).then(() => { setCopied(k); setTimeout(() => setCopied(''), 1500); }).catch(() => {}); };
   const asText = () => days.map((d, i) => `Day ${i + 1} · ${d.date} · ${d.title.en}\n` + d.stops.map((id) => `  • ${STOPS[id].name.en}: ${fmt(STOPS[id])}  ${gmapsPin(STOPS[id])}`).join('\n')).join('\n\n');
@@ -21,6 +29,7 @@ export default function Itinerary({ days, legs, lang, t, visited, onClose, onSho
       <div className="itin-head">
         <h2>📋 {t('itinT')}</h2>
         <button className="chip" onClick={() => copy(asText(), 'all')}>{copied === 'all' ? t('copied') : '⧉ ' + t('copyAll')}</button>
+        <button className="chip" onClick={exportNotes}>⬇ {t('exportJ')}</button>
         <button className="x static" onClick={onClose} aria-label="close">✕</button>
       </div>
       <div className="itin-body">
@@ -35,6 +44,7 @@ export default function Itinerary({ days, legs, lang, t, visited, onClose, onSho
                     <span className="ie">{visited[id] && i === 0 ? '✓' : s.emoji}</span>
                     <div className="it">
                       <b>{pick(s.name, lang)}</b>
+                      {counts['stop:' + id] && <small className="jbadge">📝{counts['stop:' + id].notes} 📷{counts['stop:' + id].photos}</small>}
                       <button className="coord" onClick={() => copy(fmt(s), id + i)}>{copied === id + i ? t('copied') : fmt(s)}{isCustom(id) ? ' ✎' : ''}</button>
                     </div>
                     <button className="mini-btn" onClick={() => onShow(id)} title={t('showOnMap')}>🎯</button>

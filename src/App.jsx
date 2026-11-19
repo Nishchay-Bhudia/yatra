@@ -11,6 +11,8 @@ import StopCard from './components/StopCard';
 import Itinerary from './components/Itinerary';
 import CapturePanel from './components/CapturePanel';
 import { useGeo, setStop, setVia, getVia } from './lib/geo';
+import { addPhoto } from './lib/journal';
+import { haversineKm } from './lib/api';
 
 const LEGS = [], STOP_DATES = {}, FIRST_DAY = {};
 DAYS.forEach((day, di) => {
@@ -65,6 +67,19 @@ export default function App() {
     return { lat: p.lat, lng: p.lng };
   };
   const stopIds = Object.keys(STOPS);
+  const quick = useRef();
+  const [toast, setToast] = useState('');
+  const say = (m) => { setToast(m); setTimeout(() => setToast(''), 3000); };
+  const quickTarget = () => {
+    if (sel?.type === 'stop') return { k: 'stop:' + sel.id, name: STOPS[sel.id].name };
+    if (sel?.type === 'leg') { const l = LEGS.find((x) => x.id === sel.id); return { k: `leg:${l.a}>${l.b}`, name: { en: `${STOPS[l.a].name.en} ➜ ${STOPS[l.b].name.en}`, gu: `${STOPS[l.a].name.gu} ➜ ${STOPS[l.b].name.gu}`, hi: `${STOPS[l.a].name.hi} ➜ ${STOPS[l.b].name.hi}` } }; }
+    if (me) { const id = stopIds.reduce((a, b) => (haversineKm(me, STOPS[b]) < haversineKm(me, STOPS[a]) ? b : a)); return { k: 'stop:' + id, name: STOPS[id].name }; }
+    return null;
+  };
+  const onQuick = async (e) => {
+    const files = [...e.target.files]; e.target.value = ''; const tg = quickTarget(); if (!files.length || !tg) return;
+    try { for (const f of files) await addPhoto(tg.k, f, me ? { lat: me.lat, lng: me.lng } : undefined); say(`${t('savedTo')} ${pick(tg.name, lang)}`); } catch { say(t('errSave')); }
+  };
   useEffect(() => { const id = setTimeout(() => setHint(false), 7000); return () => clearTimeout(id); }, []);
   useEffect(() => { if (sel) setHint(false); }, [sel]);
 
@@ -95,6 +110,9 @@ export default function App() {
 
       <button className="layerbtn" onClick={() => setBase(ORDER[(ORDER.indexOf(base) + 1) % ORDER.length])} aria-label="map style">{ICON[base]}</button>
       <button className={`layerbtn locbtn ${me ? 'on' : ''}`} onClick={locate} aria-label={t('whereAmI')}>📍</button>
+      <button className="layerbtn quickbtn" onClick={() => (quickTarget() ? quick.current.click() : say(t('noTarget')))} aria-label={t('quickCap')}>📷</button>
+      <input ref={quick} type="file" accept="image/*" capture="environment" hidden onChange={onQuick} />
+      {toast && <div className="hint">{toast}</div>}
       <button className="layerbtn itinbtn" onClick={() => { setSel(null); setEditing(false); setShowItin(true); }} aria-label={t('itinT')}>📋</button>
       <button className={`layerbtn editbtn ${editing ? 'on' : ''}`} onClick={() => { setShowItin(false); setSel(null); setEditing(!editing); }} aria-label={t('editPins')}>✏️</button>
       {editing && <div className="crosshair" style={{ left: `calc(50% - ${insetE.right / 2}px)`, top: `calc(50% - ${(insetE.bottom - 70) / 2}px)` }}><i /><b /></div>}
@@ -114,7 +132,7 @@ export default function App() {
               <div className="grab" /><button className="x" onClick={() => setSel(null)} aria-label="close">✕</button>
             </div>
             <div className="pop-body">
-              {leg ? <LegCard key={leg.id} legIdx={leg.idx} fromId={leg.a} toId={leg.b} day={leg.day} lang={lang} t={t} now={now} />
+              {leg ? <LegCard key={leg.id} legIdx={leg.idx} fromId={leg.a} toId={leg.b} day={leg.day} lang={lang} t={t} now={now} me={me} />
                 : <StopCard id={sel.id} dates={STOP_DATES[sel.id]} lang={lang} t={t} now={now} visited={visited[sel.id]} onToggle={() => setManual({ ...manual, [sel.id]: !visited[sel.id] })} me={me} nextLegs={LEGS.filter((l) => l.a === sel.id)} onOpenLeg={(id) => setSel({ type: 'leg', id })} />}
             </div>
           </motion.div>

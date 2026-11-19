@@ -6,8 +6,9 @@ import { getRoute, getElevation, classifyTerrain, TERRAIN, getWeather, weatherFo
 import { toMs, hhmm, fmtClock, fmtDur, splitDur, hourKey } from '../lib/time';
 import { useStored } from '../lib/useStored';
 import { getVia, useGeo } from '../lib/geo';
+import Journal from './Journal';
 
-export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
+export default function LegCard({ legIdx, fromId, toId, day, lang, t, now, me }) {
   const geoVer = useGeo();
   const from = STOPS[fromId], to = STOPS[toId];
   const id = `${day.date}:${fromId}>${toId}`;
@@ -139,6 +140,7 @@ export default function LegCard({ legIdx, fromId, toId, day, lang, t, now }) {
           <a className="chip live" href={live} target="_blank" rel="noreferrer">🧭 {t('navigate')}</a>
         </div>
       </div>
+      <Journal k={'leg:' + fromId + '>' + toId} me={me} t={t} lang={lang} />
     </div>
   );
 }

@@ -199,3 +199,19 @@ footer{text-align:center;color:var(--muted);font-size:12px;margin-top:6px}
 .coord{font-family:ui-monospace,Menlo,monospace;font-size:12.5px;color:var(--blue);padding:0;text-align:left}
 .ileg{display:flex;align-items:center;gap:10px;padding:0 0 0 16px;color:var(--muted);font-weight:700;font-size:13.5px}
 .ileg i{width:2px;height:22px;background:repeating-linear-gradient(#2f7bff 0 4px,transparent 4px 8px);margin-right:6px}
+
+/* ---------- journal ---------- */
+.quickbtn{top:260px}
+.journal{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.j-head{display:flex;align-items:center;gap:8px}.j-head .morebtn{flex:1;text-align:left}
+.pasterow textarea{flex:1;min-width:0;border:2px solid var(--line);border-radius:12px;padding:6px 10px;background:#f7fbff;font-size:15px;font-family:inherit;resize:vertical;color:var(--ink)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px;margin:8px 0}
+.pgrid button{aspect-ratio:1;border-radius:14px;overflow:hidden;padding:0;box-shadow:0 3px 8px rgba(47,100,200,.2)}.pgrid img{width:100%;height:100%;object-fit:cover;display:block}
+.jnote{position:relative;background:#fffbea;border-radius:14px;padding:8px 30px 6px 12px;margin-top:6px;box-shadow:0 3px 8px rgba(47,100,200,.1)}
+.jnote p{line-height:1.4;white-space:pre-wrap}.jnote small{color:var(--muted);font-weight:600}
+.jdel{position:absolute;right:8px;top:6px;font-size:13px;color:var(--muted)}
+.lightbox{position:fixed;inset:0;z-index:1200;background:rgba(10,18,36,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px}
+.lightbox img{max-width:100%;max-height:78dvh;border-radius:16px}
+.lb-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;color:#fff;font-weight:700;font-size:13px}
+.jbadge{display:block;font-weight:700;color:var(--muted)}
+.lb-bar .chip{color:var(--ink)}

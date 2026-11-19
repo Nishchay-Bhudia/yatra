@@ -6,6 +6,7 @@ import { pick, num } from '../i18n';
 import { getWeather, weatherFor, wmo, haversineKm } from '../lib/api';
 import { fmtDate, toMs } from '../lib/time';
 import { useGeo } from '../lib/geo';
+import Journal from './Journal';
 
 export default function StopCard({ id, dates, lang, t, now, visited, onToggle, nextLegs, onOpenLeg, me }) {
   const geoVer = useGeo();
@@ -56,6 +57,7 @@ export default function StopCard({ id, dates, lang, t, now, visited, onToggle, n
           )}
         </>
       )}
+      <Journal k={'stop:' + id} me={me} t={t} lang={lang} />
     </div>
   );
 }
